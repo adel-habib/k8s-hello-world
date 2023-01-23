@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 )
 
 
@@ -16,5 +17,9 @@ func main(){
 
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprint(w,"Hello k8s!\n")
+  host, err := os.Hostname()
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  fmt.Fprint(w,fmt.Sprintf("Hello k8s from %s\n",host))
 }
